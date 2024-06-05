@@ -19,10 +19,12 @@ import {
 import { TagList } from "./Tagfilter/ListeDesTags";
 import { tagList } from "./Tags/TagData";
 import { SelectedTags } from "./Tags/SelectedTags";
+import { SearchBar } from "./SearchBar/SearchBar";
 
 export default function App() {
   const [filter, setFilter] = useState<string>("all");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const handleTagClick = (tagId: string) => {
     if (selectedTags.includes(tagId)) {
@@ -51,7 +53,7 @@ export default function App() {
       case "chocolate dessert":
         recipes = chocolateDessertRecipes;
         break;
-      case "eggs free":
+      case "oeuf":
         recipes = noEggsRecipes;
         break;
       case "chocolate":
@@ -79,17 +81,25 @@ export default function App() {
         recipes = allRecipes;
     }
     return recipes.filter((recipe) =>
-      selectedTags.every((tagId) => recipe.tags.some((recipeTag) => recipeTag.id === tagId))
+      selectedTags.every((tagId) => recipe.tags.some((recipeTag) => recipeTag.id === tagId)) &&
+      recipe.nom.toLowerCase().includes(searchQuery.toLowerCase())
     );
   };
 
   const filteredRecipes = getFilteredRecipes();
 
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+  };
+
   return (
     <div className="App">
-      Liste des recettes
+       Liste des recettes
       <SelectedTags selectedTags={selectedTags} onTagRemove={handleTagRemove} tagList={tagList} />
       <TagList tags={tagList} onTagClick={handleTagClick} />
+
+      <SearchBar onSearch={handleSearch} /> 
+
 
       <button onClick={() => setFilter("chocolate")}>Chocolat</button>
       <button onClick={() => setFilter("sugar")}>Sucre</button>
@@ -98,7 +108,7 @@ export default function App() {
       <button onClick={() => setFilter("chocolate dessert")}>
         dessert chocolat
       </button>
-      <button onClick={() => setFilter("eggs free")}>Sans Oeufs</button>
+      <button onClick={() => setFilter("oeuf")}>Sans Oeufs</button>
       <button onClick={() => setFilter("autumn")}> Autumn</button>
       <button onClick={() => setFilter("vegan")}> Vegan</button>
       <button onClick={() => setFilter("african")}>African</button>

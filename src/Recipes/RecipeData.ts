@@ -83,7 +83,7 @@ const pearPie: RecipeType = {
     "La tarte au poire est une tarte faite à base d'un appareil à l'amande, d'une pâte sablée et de poires",
   imageURL:
     "https://assets.afcdn.com/recipe/20201228/116793_w1200h800c1cx1060cy707cxb2121cyb1414.webp",
-  ingredients: [almondPowder, sugar, butter, flour, pear],
+  ingredients: [almondPowder, sugar, butter, flour, pear, egg],
   etapes: stepsTarteAuxPoires,
   ingredientsWithQuantity: [
     { ingredient: pear, quantity: 2 },

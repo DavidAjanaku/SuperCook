@@ -53,7 +53,6 @@ export const Recipe = ({ recipe }: { recipe: RecipeType }) => {
           <Tags
             tags={recipe.tags}
             onTagClick={(tagId) => {
-              // handle the click event here
               console.log(`Tag clicked: ${tagId}`);
             }}
           />
